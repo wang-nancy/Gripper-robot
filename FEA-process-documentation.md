@@ -12,7 +12,7 @@ The assembly is a 5-jaw radial gripper built around a central pushrod (slider-cr
 actuation):
 
 - **Central pushrod (slider):** moves axially to actuate all 5 jaws simultaneously.
-  75 mm long, stroke from 11.69 mm (fully open) to 45.64 mm (fully closed) — about
+  75 mm long, stroke from 11.69 mm (fully open) to 45.64 mm (fully closed), about
   33.95 mm of linear travel.
 - **5 jaw assemblies:** at 72° intervals. Each jaw pivots on a fixed pin in the bracket
   and is driven by a crank link connected to the pushrod.
@@ -45,7 +45,7 @@ F_grip = (m · g · SF) / (μ · n)
 where m = 5 kg, g = 9.81 m/s², SF = 3.0, μ = 0.30, n = 5 jaws.
 
 For the FEA, **50 N per jaw** was used as an initial test value, applied as outward
-radial forces on the inside face of each jaw tip — the reaction from a gripped object
+radial forces on the inside face of each jaw tip, the reaction from a gripped object
 pushing back against the closed jaws.
 
 **Mechanical advantage.** Because the gripper is a slider-crank, the pushrod force
@@ -55,7 +55,7 @@ the position an actuator-sizing calculation should target. An interactive linkag
 force calculator was built from the linkage geometry to estimate mechanical advantage
 across the stroke and locate this worst case.
 
-Linkage geometry used (estimates from a reference model — to be refined with exact CAD):
+Linkage geometry used (estimates from a reference model, to be refined with exact CAD):
 
 - Pivot offset (centerline to fixed jaw pivot): ~18 mm
 - Crank link pin-to-pin: 20 mm (measured)
