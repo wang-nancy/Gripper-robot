@@ -2,7 +2,7 @@
 
 Static structural analysis of a 5-jaw radial gripper with central pushrod
 (slider-crank) actuation, in Ansys Mechanical 2026 R1. This is an in-progress
-study — preliminary results are reported below with their known limitations, and
+study, preliminary results are reported below with their known limitations, and
 the full write-up is in [`FEA-process-documentation.pdf`](FEA-process-documentation.pdf).
 
 ## The mechanism
