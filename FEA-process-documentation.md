@@ -1,4 +1,4 @@
-# FEA Process Documentation — 5-Jaw Radial Gripper
+# FEA Process Documentation, 5-Jaw Radial Gripper
 
 **Software:** Ansys Mechanical 2026 R1 (Workbench)
 **Model:** 5-jaw radial gripper with central pushrod actuation
@@ -258,7 +258,7 @@ model is in place.
 |-----------|-------|
 | Software | Ansys Mechanical Enterprise (Workbench) 2026 R1 |
 | Analysis type | Static Structural (adopted over Transient) |
-| Material | Structural steel — E 200 GPa, ν 0.3, ρ 7850 kg/m³ |
+| Material | Structural steel, E 200 GPa, ν 0.3, ρ 7850 kg/m³ |
 | Units | Metric (mm, kg, N, s) |
 | Solver | Direct (sparse) |
 | Large deflection | On |
