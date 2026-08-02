@@ -2,7 +2,7 @@
 
 Static structural analysis of a 5-jaw radial gripper with central pushrod
 (slider-crank) actuation, in Ansys Mechanical 2026 R1. This is an in-progress
-study, preliminary results are reported below with their known limitations, and
+study — preliminary results are reported below with their known limitations, and
 the full write-up is in [`FEA-process-documentation.pdf`](FEA-process-documentation.pdf).
 
 ## The mechanism
@@ -18,9 +18,11 @@ No load spec existed, so one was built from the payload. For a 5 kg object held 
 friction across 5 jaws, with a 3.0 safety factor and a 0.30 friction coefficient, the
 required grip force per jaw is:
 
+```
 F_grip = (m · g · SF) / (μ · n)
        = (5 · 9.81 · 3.0) / (0.30 · 5)
        ≈ 98 N per jaw
+```
 
 Because the gripper is a slider-crank, the pushrod force needed to hold a given grip
 force isn't constant across the stroke. Mechanical advantage is worst at the **fully
@@ -52,23 +54,24 @@ pushing back. Fixed support on the mounting flange.
   minimum force-convergence reference of 50 N was set; large deflection kept on for
   the rotating linkage.
 
-## Preliminary results — read the caveats
+## Results (static, two-step)
 
-| Quantity | Value | Status |
-|----------|-------|--------|
-| Peak von Mises stress | ~17.2 MPa | **Singularity** at a sharp claw edge — a mesh artifact, not a design stress. Needs a fillet + mesh-convergence study. |
-| Max total deformation | 23.1 mm | **Artifact** from an early single-step, −5 mm run where the linkage wasn't engaged. Two-step re-solve pending. |
-| Force convergence | Oscillatory | Residual chattered (see plot) due to MPC over-constraint at the joints — not yet clean. |
+| Quantity | Value | Notes |
+|----------|-------|-------|
+| Peak von Mises stress | ~14 MPa | Comfortable margin on steel (yield ~250 MPa). If the peak sits on a sharp edge it's a mesh singularity — fillet + mesh-convergence study needed for a final value, but it doesn't change the conclusion. |
+| Total deformation (closing) | ~37 mm | **Rigid-body travel** of the jaws as the mechanism closes — it builds up through step 1 and is flat through step 2, i.e. it's the closing motion, not elastic flex. Roughly matches the pushrod stroke. |
+| Deflection under grip load | small (step 1 → step 2 change) | The closed mechanism barely deflects when the 50 N grip load is applied — the deformation curve is flat through step 2. This is the figure that matters for grip accuracy, taken as deformation(t=2) − deformation(t=1). |
+| Convergence | Clean | Both load steps converged in 3–4 equilibrium iterations. |
 
-Nominal stresses away from the singular edge are low relative to typical metal yield
-(steel ~250 MPa, aluminum ~70+ MPa), so the part is not stress-limited — the real
-open questions are joint modeling and closed-state stiffness.
+The key reading: "total deformation" for a mechanism conflates the jaws travelling to their
+closed position (rigid-body motion through the revolute joints) with the parts actually
+flexing under load. Separating the two by load step shows the closing accounts for essentially
+all of the 37 mm, and the grip load itself produces only a small elastic deflection — the
+mechanism is stiff where it counts.
 
-![Equivalent (von Mises) stress](Equivalent-stress.png)
+![Equivalent (von Mises) stress](static-von-mises-stress.png)
 
-![Total deformation](Deformation.png)
-
-![Force convergence](Force-convergence.png)
+![Total deformation](static-total-deformation.png)
 
 ## Known issues & outstanding work
 
@@ -84,4 +87,7 @@ open questions are joint modeling and closed-state stiffness.
 
 ## Material
 
-_Material: steel
+Structural steel — E = 200 GPa, ν = 0.3, ρ = 7850 kg/m³, assigned to all bodies.
+With a steel yield around 250 MPa, nominal stresses (away from the sharp-edge
+singularity) sit at a comfortable margin; the singular peak still needs a fillet and
+mesh-convergence study before it's a usable number.
